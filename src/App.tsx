@@ -55,7 +55,7 @@ const HomePage = () => {
       const tl = gsap.timeline({ delay: 0.2 });
       tl.fromTo(leftRef.current, { x: "-100%" }, { x: "0%", duration: 1, ease: "power3.out" });
       tl.fromTo(rightRef.current, { x: "100%" }, { x: "0%", duration: 1, ease: "power3.out" }, "<");
-      tl.fromTo((headlineRef.current as Element)?.querySelectorAll(".headline-word") || [], { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }, "-=0.4");
+      tl.fromTo((headlineRef.current as unknown as Element)?.querySelectorAll(".headline-word") || [], { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }, "-=0.4");
     }, heroRef);
     return () => ctx.revert();
   }, []);
@@ -396,4 +396,5 @@ function App() {
 }
 
 export default App;
+
 
