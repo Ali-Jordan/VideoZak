@@ -1,4 +1,4 @@
-﻿import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
 import { useEffect, useRef, useLayoutEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -45,17 +45,24 @@ const Navigation = () => {
 };
 
 const HomePage = () => {
-  const heroRef = useRef(null);
-  const leftRef = useRef(null);
-  const rightRef = useRef(null);
-  const headlineRef = useRef(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.2 });
       tl.fromTo(leftRef.current, { x: "-100%" }, { x: "0%", duration: 1, ease: "power3.out" });
       tl.fromTo(rightRef.current, { x: "100%" }, { x: "0%", duration: 1, ease: "power3.out" }, "<");
-      tl.fromTo((headlineRef.current as unknown as Element)?.querySelectorAll(".headline-word") || [], { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }, "-=0.4");
+      if (headlineRef.current) {
+        tl.fromTo(
+          headlineRef.current.querySelectorAll(".headline-word"),
+          { y: 80, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" },
+          "-=0.4"
+        );
+      }
     }, heroRef);
     return () => ctx.revert();
   }, []);
@@ -87,7 +94,7 @@ const HomePage = () => {
           <div className="partner-badge">
             <div className="partner-logos">
               <span className="vz-mark-sm">VZ</span>
-              <span className="partner-x">×</span>
+              <span className="partner-x">x</span>
               <span className="hw-mark">HW</span>
             </div>
             <p className="partner-text">Official Visual & Brand Partner · HostItWise Platform · Chicago Metro</p>
@@ -102,7 +109,7 @@ const HomePage = () => {
             {[
               { number: "97%", label: "Google First", description: "of customers Google a business before calling", icon: <TrendingUp size={32} /> },
               { number: "42%", label: "More Directions", description: "GBP listings with photos get more direction requests", icon: <MapPin size={32} /> },
-              { number: "3.5×", label: "Brand Recall", description: "Businesses with consistent branding are more likely to be remembered", icon: <Eye size={32} /> }
+              { number: "3.5x", label: "Brand Recall", description: "Businesses with consistent branding are more likely to be remembered", icon: <Eye size={32} /> }
             ].map((stat, i) => (
               <div key={i} className="stat-card">
                 <div className="stat-icon">{stat.icon}</div>
@@ -164,10 +171,12 @@ const HomePage = () => {
       </section>
 
       <section className="home-cta-section">
-        <div className="section-container" style={{textAlign:"center"}}>
-          <h2 className="section-title" style={{color:"#fff"}}>Ready to look like a real brand?</h2>
-          <p style={{color:"rgba(255,255,255,0.7)",marginBottom:"2rem",fontSize:"1.1rem"}}>Book a free 15-minute call. We shoot anywhere in the Chicago metro.</p>
-          <div style={{display:"flex",gap:"1rem",justifyContent:"center",flexWrap:"wrap"}}>
+        <div className="section-container" style={{ textAlign: "center" }}>
+          <h2 className="section-title" style={{ color: "#fff" }}>Ready to look like a real brand?</h2>
+          <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "2rem", fontSize: "1.1rem" }}>
+            Book a free 15-minute call. We shoot anywhere in the Chicago metro.
+          </p>
+          <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link to="/contact" className="btn-primary">Book a Shoot <ArrowRight size={18} /></Link>
             <Link to="/photography" className="btn-secondary">View Services</Link>
           </div>
@@ -179,11 +188,11 @@ const HomePage = () => {
 
 const PhotographyPage = () => {
   const services = [
-    { name: "Starter Shot", price: "$599", period: "one-time", description: "1.5 hours on-site. 15 edited deliverables. Owner portrait, storefront, interior, and one service in action.", pairs: "Pairs with HostItWise Base Website ($500) and Standard Website ($800–$1,000)", popular: true },
-    { name: "Brand Day", price: "$1,799", period: "one-time", description: "Full day on-site. 50+ edited images. Team portraits, all services in action, exterior, interior, equipment, and detail shots.", pairs: "Powers 6 months of social content. Pairs with HostItWise Premium Website ($1,500)" },
-    { name: "Quarterly Refresh", price: "$399", period: "/quarter", description: "10 fresh edited images every 3 months. Seasonal content, new services, new team.", pairs: "Designed to pair with HostItWise GBP Management ($99/mo) and Social packages" },
-    { name: "Social Content Session", price: "$249", period: "one-time", description: "45-minute focused shoot. 8 images formatted for Instagram, Facebook, and Google Business Profile.", pairs: "Pairs with HostItWise Social Starter ($199/mo) and Social Growth ($399/mo)" },
-    { name: "GBP Profile Pack", price: "$199", period: "add-on", description: "5 images shot and formatted specifically for Google Business Profile.", pairs: "Uploaded and optimized by the HostItWise team same week" }
+    { name: "Starter Shot", price: "$599", period: "one-time", description: "1.5 hours on-site. 15 edited deliverables. Owner portrait, storefront, interior, and one service in action.", pairs: "Pairs with HostItWise Base Website ($500) and Standard Website ($800-$1,000)", popular: true },
+    { name: "Brand Day", price: "$1,799", period: "one-time", description: "Full day on-site. 50+ edited images. Team portraits, all services in action, exterior, interior, equipment, and detail shots.", pairs: "Powers 6 months of social content. Pairs with HostItWise Premium Website ($1,500)", popular: false },
+    { name: "Quarterly Refresh", price: "$399", period: "/quarter", description: "10 fresh edited images every 3 months. Seasonal content, new services, new team.", pairs: "Designed to pair with HostItWise GBP Management ($99/mo) and Social packages", popular: false },
+    { name: "Social Content Session", price: "$249", period: "one-time", description: "45-minute focused shoot. 8 images formatted for Instagram, Facebook, and Google Business Profile.", pairs: "Pairs with HostItWise Social Starter ($199/mo) and Social Growth ($399/mo)", popular: false },
+    { name: "GBP Profile Pack", price: "$199", period: "add-on", description: "5 images shot and formatted specifically for Google Business Profile.", pairs: "Uploaded and optimized by the HostItWise team same week", popular: false }
   ];
 
   return (
@@ -197,7 +206,7 @@ const PhotographyPage = () => {
       </div>
       <section className="services-section">
         <div className="section-container">
-          <div className="service-category" style={{maxWidth:"900px",margin:"0 auto"}}>
+          <div className="service-category" style={{ maxWidth: "900px", margin: "0 auto" }}>
             <div className="category-header"><Camera size={28} /><h3>Photography Packages</h3></div>
             <div className="service-cards">
               {services.map((service, i) => (
@@ -216,7 +225,7 @@ const PhotographyPage = () => {
               ))}
             </div>
           </div>
-          <div style={{textAlign:"center",marginTop:"3rem"}}>
+          <div style={{ textAlign: "center", marginTop: "3rem" }}>
             <Link to="/contact" className="btn-primary">Book a Shoot <ArrowRight size={18} /></Link>
           </div>
         </div>
@@ -227,11 +236,11 @@ const PhotographyPage = () => {
 
 const BrandingPage = () => {
   const services = [
-    { name: "Logo Design", price: "$299", period: "one-time", description: "Custom logo built around your business name, colors, and industry. Delivered in PNG, SVG, and transparent formats. Includes 2 revision rounds.", pairs: "Pairs with any HostItWise website build — logo goes live the same week", popular: true },
-    { name: "Brand Identity Package", price: "$599", period: "one-time", description: "Logo + color palette + typography selection + brand guidelines document. Everything for consistent brand presence.", pairs: "Pairs with HostItWise Premium Website ($1,500) and Brand Day photography" },
-    { name: "Brand Refresh", price: "$399", period: "one-time", description: "For businesses with an existing logo that needs modernizing. Updated logo, adjusted color palette, new file formats.", pairs: "Ideal for businesses with pre-2018 visual identity" },
-    { name: "Social Media Profile Setup", price: "$149", period: "one-time", description: "Profile photo, cover image, and highlight covers designed and sized correctly for Facebook, Instagram, and GBP.", pairs: "Pairs with any HostItWise social media plan" },
-    { name: "Business Card & Print Design", price: "$199", period: "one-time", description: "Business card design (front and back), print-ready files, and recommended print vendor.", pairs: "Optional add-on with any branding package" }
+    { name: "Logo Design", price: "$299", period: "one-time", description: "Custom logo built around your business name, colors, and industry. Delivered in PNG, SVG, and transparent formats. Includes 2 revision rounds.", pairs: "Pairs with any HostItWise website build - logo goes live the same week", popular: true },
+    { name: "Brand Identity Package", price: "$599", period: "one-time", description: "Logo + color palette + typography selection + brand guidelines document. Everything for consistent brand presence.", pairs: "Pairs with HostItWise Premium Website ($1,500) and Brand Day photography", popular: false },
+    { name: "Brand Refresh", price: "$399", period: "one-time", description: "For businesses with an existing logo that needs modernizing. Updated logo, adjusted color palette, new file formats.", pairs: "Ideal for businesses with pre-2018 visual identity", popular: false },
+    { name: "Social Media Profile Setup", price: "$149", period: "one-time", description: "Profile photo, cover image, and highlight covers designed and sized correctly for Facebook, Instagram, and GBP.", pairs: "Pairs with any HostItWise social media plan", popular: false },
+    { name: "Business Card & Print Design", price: "$199", period: "one-time", description: "Business card design (front and back), print-ready files, and recommended print vendor.", pairs: "Optional add-on with any branding package", popular: false }
   ];
 
   return (
@@ -240,12 +249,12 @@ const BrandingPage = () => {
         <div className="section-container">
           <p className="page-eyebrow">Branding & Digital Identity</p>
           <h1>Look Like You Mean Business.</h1>
-          <p className="page-sub">From logo to brand guidelines — everything you need to look consistent across every platform.</p>
+          <p className="page-sub">From logo to brand guidelines - everything you need to look consistent across every platform.</p>
         </div>
       </div>
       <section className="services-section">
         <div className="section-container">
-          <div className="service-category" style={{maxWidth:"900px",margin:"0 auto"}}>
+          <div className="service-category" style={{ maxWidth: "900px", margin: "0 auto" }}>
             <div className="category-header"><Palette size={28} /><h3>Branding Packages</h3></div>
             <div className="service-cards">
               {services.map((service, i) => (
@@ -264,7 +273,7 @@ const BrandingPage = () => {
               ))}
             </div>
           </div>
-          <div style={{textAlign:"center",marginTop:"3rem"}}>
+          <div style={{ textAlign: "center", marginTop: "3rem" }}>
             <Link to="/contact" className="btn-primary">Start Your Brand <ArrowRight size={18} /></Link>
           </div>
         </div>
@@ -275,11 +284,11 @@ const BrandingPage = () => {
 
 const PortfolioPage = () => {
   const items = [
-    { image: "/images/portfolio-contractor.jpg", category: "Contractor", title: "Chicago Builders", result: "3× more quote requests" },
+    { image: "/images/portfolio-contractor.jpg", category: "Contractor", title: "Chicago Builders", result: "3x more quote requests" },
     { image: "/images/portfolio-hvac.jpg", category: "HVAC", title: "Comfort Systems", result: "150% increase in calls" },
     { image: "/images/portfolio-salon.jpg", category: "Salon", title: "C Studio", result: "Fully booked within 2 weeks" },
-    { image: "/images/portfolio-restaurant.jpg", category: "Restaurant", title: "The Forge", result: "2× reservation rate" },
-    { image: "/images/portfolio-landscaper.jpg", category: "Landscaper", title: "GreenScapes", result: "4× Google views" },
+    { image: "/images/portfolio-restaurant.jpg", category: "Restaurant", title: "The Forge", result: "2x reservation rate" },
+    { image: "/images/portfolio-landscaper.jpg", category: "Landscaper", title: "GreenScapes", result: "4x Google views" },
     { image: "/images/portfolio-team.jpg", category: "Behind the Scenes", title: "VideoZak Crew", result: "Professional production" },
     { image: "/images/spotlight-photographer.jpg", category: "On Location", title: "Shoot Day", result: "48hr delivery" },
     { image: "/images/process-photographer.jpg", category: "Process", title: "Behind the Camera", result: "Full production" },
@@ -313,7 +322,7 @@ const PortfolioPage = () => {
               </div>
             ))}
           </div>
-          <div style={{textAlign:"center",marginTop:"3rem"}}>
+          <div style={{ textAlign: "center", marginTop: "3rem" }}>
             <Link to="/contact" className="btn-primary">Book Your Shoot <ArrowRight size={18} /></Link>
           </div>
         </div>
@@ -324,15 +333,17 @@ const PortfolioPage = () => {
 
 const ContactPage = () => (
   <div className="page-inner">
-    <section className="contact-section" style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center"}}>
-      <div className="section-container" style={{width:"100%"}}>
+    <section className="contact-section" style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div className="section-container" style={{ width: "100%" }}>
         <div className="contact-content">
           <h2>Ready to look like a real brand?</h2>
           <div className="contact-phone">
             <Phone size={32} />
             <a href="tel:630-670-6124">630-670-6124</a>
           </div>
-          <p className="contact-description">Book a free 15-minute call. We shoot and brand anywhere in Cook, DuPage, Lake, Will, Kane, and McHenry counties.</p>
+          <p className="contact-description">
+            Book a free 15-minute call. We shoot and brand anywhere in Cook, DuPage, Lake, Will, Kane, and McHenry counties.
+          </p>
           <div className="contact-ctas">
             <a href="tel:630-670-6124" className="btn-primary"><Phone size={18} /> Call Now</a>
             <a href="mailto:hello@vzak.com" className="btn-secondary"><Mail size={18} /> Email Us</a>
@@ -348,7 +359,53 @@ const ContactPage = () => (
   </div>
 );
 
+const Footer = () => (
+  <footer className="footer">
+    <div className="footer-inner">
+      <div className="footer-main">
+        <Link to="/" className="footer-brand">
+          <span className="vz-mark">VZ</span>
+          <span className="footer-brand-name">VideoZak</span>
+        </Link>
+        <div className="footer-partner">
+          <span>Official Visual & Brand Partner</span>
+          <span className="partner-divider">·</span>
+          <span>HostItWise Platform</span>
+        </div>
+      </div>
+      <div className="footer-links">
+        <a href="tel:630-670-6124"><Phone size={16} /> 630-670-6124</a>
+        <a href="mailto:hello@vzak.com"><Mail size={16} /> hello@vzak.com</a>
+        <a href="https://instagram.com/videozak" target="_blank" rel="noopener noreferrer">
+          <Instagram size={16} /> @videozak
+        </a>
+      </div>
+      <div className="footer-bottom">
+        <p>© 2025 VideoZak. All rights reserved.</p>
+        <p>Chicago, IL · vzak.com</p>
+      </div>
+    </div>
+  </footer>
+);
+
+function App() {
+  return (
+    <Router>
+      <div className="app">
+        <Navigation />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/photography" element={<PhotographyPage />} />
+            <Route path="/branding" element={<BrandingPage />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
 export default App;
-
-
-
