@@ -1,4 +1,4 @@
-/* VideoZak - Chicago Business Photography */
+﻿/* VideoZak - Chicago Business Photography */
 /* Design System: Bold, Professional, High-Contrast */
 
 /* CSS Variables */
@@ -263,10 +263,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Partner Badge Section */
-.partner-section {
-  padding: 4rem 2rem;
-  background: var(--color-gray-100);
-}
+.partner-section { background: var(--color-primary); padding: 3rem 2rem; border-top: 1px solid rgba(255,255,255,0.08); }
 
 .partner-content {
   max-width: 800px;
@@ -570,10 +567,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Portfolio Section */
-.portfolio-section {
-  padding: 6rem 2rem;
-  background: var(--color-gray-100);
-}
+.portfolio-section { background: var(--color-primary); padding: 6rem 2rem; }
 
 .portfolio-grid {
   display: grid;
@@ -789,10 +783,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Pricing Section */
-.pricing-section {
-  padding: 6rem 2rem;
-  background: var(--color-gray-100);
-}
+.pricing-section { background: var(--color-gray-900); padding: 6rem 2rem; }
 
 .bundles-grid {
   display: grid;
@@ -1118,4 +1109,26 @@ h1, h2, h3, h4, h5, h6 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Multi-page additions */
+.nav-fixed { transform: translateY(0) !important; background: rgba(26,26,46,0.97); backdrop-filter: blur(10px); }
+.nav-scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+.nav-hamburger { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 0.5rem; }
+.page-inner { padding-top: 72px; }
+.page-hero-simple { background: var(--color-primary); padding: 6rem 2rem 4rem; }
+.page-eyebrow { color: var(--color-accent); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+.page-hero-simple h1 { color: #fff; font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 1rem; }
+.page-sub { color: rgba(255,255,255,0.7); font-size: 1.2rem; max-width: 600px; }
+.home-cta-section { background: var(--color-primary); padding: 6rem 2rem; }
+.portfolio-section { background: var(--color-primary); padding: 4rem 2rem; }
+.portfolio-category { color: var(--color-accent); }
+.portfolio-info h4 { color: #fff; }
+.portfolio-info { background: rgba(255,255,255,0.05); }
+
+@media (max-width: 768px) {
+  .nav-hamburger { display: block; }
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: rgba(26,26,46,0.98); padding: 1rem 2rem; gap: 0.5rem; }
+  .nav-links.nav-open { display: flex; }
+  .nav-link { padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
 }
