@@ -324,7 +324,7 @@ const PortfolioPage = () => {
 
 const ContactPage = () => (
   <div className="page-inner">
-    <section className="contact-section" style={{minHeight:"100vh",display:"flex",alignItems:"center"}}>
+    <section className="contact-section" style={{minHeight:"100vh",display:"flex",alignItems:"center",justifyContent:"center"}}>
       <div className="section-container" style={{width:"100%"}}>
         <div className="contact-content">
           <h2>Ready to look like a real brand?</h2>
@@ -338,7 +338,7 @@ const ContactPage = () => (
             <a href="mailto:hello@vzak.com" className="btn-secondary"><Mail size={18} /> Email Us</a>
           </div>
           <div className="contact-info">
-            <div className="info-item"><MapPin size={18} /><span>Chicago, IL – All 6 counties served</span></div>
+            <div className="info-item"><MapPin size={18} /><span>Chicago, IL - All 6 counties served</span></div>
             <div className="info-item"><Clock size={18} /><span>48-hour delivery on all packages</span></div>
             <div className="info-item"><Calendar size={18} /><span>Book today, shoot this week</span></div>
           </div>
@@ -348,53 +348,7 @@ const ContactPage = () => (
   </div>
 );
 
-const Footer = () => (
-  <footer className="footer">
-    <div className="footer-inner">
-      <div className="footer-main">
-        <Link to="/" className="footer-brand">
-          <span className="vz-mark">VZ</span>
-          <span className="footer-brand-name">VideoZak</span>
-        </Link>
-        <div className="footer-partner">
-          <span>Official Visual & Brand Partner</span>
-          <span className="partner-divider">·</span>
-          <span>HostItWise Platform</span>
-        </div>
-      </div>
-      <div className="footer-links">
-        <a href="tel:630-670-6124"><Phone size={16} /> 630-670-6124</a>
-        <a href="mailto:hello@vzak.com"><Mail size={16} /> hello@vzak.com</a>
-        <a href="https://instagram.com/videozak" target="_blank" rel="noopener noreferrer"><Instagram size={16} /> @videozak</a>
-      </div>
-      <div className="footer-bottom">
-        <p>© 2025 VideoZak. All rights reserved.</p>
-        <p>Chicago, IL · vzak.com</p>
-      </div>
-    </div>
-  </footer>
-);
-
-function App() {
-  return (
-    <Router>
-      <div className="app">
-        <Navigation />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/photography" element={<PhotographyPage />} />
-            <Route path="/branding" element={<BrandingPage />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
-}
-
 export default App;
+
 
 
