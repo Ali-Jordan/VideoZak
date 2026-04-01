@@ -1132,3 +1132,9 @@ h1, h2, h3, h4, h5, h6 {
   .nav-links.nav-open { display: flex; }
   .nav-link { padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
 }
+
+/* Nav fully opaque on inner pages */
+.page-inner .nav-fixed,
+.nav-fixed.nav-scrolled {
+  background: rgba(26, 26, 46, 1) !important;
+}
